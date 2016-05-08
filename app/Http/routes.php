@@ -22,7 +22,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('getFeelingsByVideo/{video_id}','AnalyticsController@getFeelingsByVideoId');
     Route::get('getTagsByVideoId/{video_id}','AnalyticsController@getTagsByVideoId');
 
-    Route::get('dashboard/{video_id}','AnalyticsController@dashboard');
+    Route::get('dashboard/{videoId}',['uses' => 'AnalyticsController@dashboard','as' => 'dashboard.video']);
 
 });
 

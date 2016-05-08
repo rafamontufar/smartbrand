@@ -26,12 +26,14 @@ class YouTube
         $url = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=$playlistId&key=".env('GOOGLE_KEY')."&maxResults=50";
 
         $response = $this->getCurl($url);
-        dd($response);
+        
         $videos = [];
         foreach ($response->items as $video){
             $videos[]=['videoId'=>$video->snippet->resourceId->videoId,'title'=>$video->snippet->title];
         }
+
         return $videos;
+    
     }
 
     public function getTagsByVideoId($video_id){

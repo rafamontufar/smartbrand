@@ -49,17 +49,4 @@ class GoogleController extends Controller
 
     }
 
-
-    public function channels(){
-
-        return View::make('channels');
-
-    }
-
-    public function videos(){
-        
-        return View::make('videos');
-    
-    }
-
 }

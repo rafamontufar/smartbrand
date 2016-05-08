@@ -10,18 +10,18 @@ use helpers\Heaven;
 class AnalyticsController extends Controller
 {
 
-	public function getTagsByVideoId($video_id){
+	public function getTagsByVideoId($videoId){
         $youtube = new YouTube();
-        $tags = $youtube->getTagsByVideoId('rVmiP7fF71A');
+        $tags = $youtube->getTagsByVideoId($videoId);
         return $tags;
 	}
 
-	public function getFeelingsByVideoId($video_id){
+	public function getFeelingsByVideoId($videoId){
 
 		$heaven = new Heaven();
 		$youtube = new YouTube();
 
-		$comments = $youtube->getCommentsByVideoId('rVmiP7fF71A');
+		$comments = $youtube->getCommentsByVideoId($videoId);
 
 		$feeling = $heaven->getFeeling($comments);
 
@@ -38,11 +38,11 @@ class AnalyticsController extends Controller
 
 	}
 
-    public function dashboard($video_id){
+    public function dashboard($videoId){
         $heaven = new Heaven();
         $youtube = new YouTube();
 
-        $comments = $youtube->getCommentsByVideoId('rVmiP7fF71A');
+        $comments = $youtube->getCommentsByVideoId($videoId);
         $users = [];
         
         foreach ($comments as $comment){
@@ -52,7 +52,7 @@ class AnalyticsController extends Controller
         $users = array_count_values($users);
         arsort($users);
 
-        $tags = $youtube->getTagsByVideoId('rVmiP7fF71A');
+        $tags = $youtube->getTagsByVideoId( $videoId );
 
         $totalComments = count($comments);
         $feeling = $heaven->getFeeling($comments);
