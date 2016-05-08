@@ -310,61 +310,10 @@ Use search to find needed section.
 
 
         <div class="row">
-            <div class="col-xs-4">
-                <!-- Centered text -->
-                <div class="stat-panel text-center">
-                    <div class="stat-row">
-                        <!-- Dark gray background, small padding, extra small text, semibold text -->
-                        <div class="stat-cell bg-dark-gray padding-sm text-xs text-semibold">
-                            <i class="fa fa-smile-o"></i>&nbsp;&nbsp;{{$goods}} positive
-                        </div>
-                    </div> <!-- /.stat-row -->
-                    <div class="stat-row">
-                        <!-- Bordered, without top border, without horizontal padding -->
-                        <div class="stat-cell bordered no-border-t no-padding-hr">
-                            <div class="pie-chart" data-percent="{{($goods+$bads+$neutral) ? $goods/($goods+$bads+$neutral)*100 : 0}}" id="easy-pie-chart-1">
-                                <div class="pie-chart-label">{{($goods+$bads+$neutral) ? $goods/($goods+$bads+$neutral)*100 : 0}}%</div>
-                            </div>
-                        </div>
-                    </div> <!-- /.stat-row -->
-                </div> <!-- /.stat-panel -->
-            </div>
-            <div class="col-xs-4">
-                <div class="stat-panel text-center">
-                    <div class="stat-row">
-                        <!-- Dark gray background, small padding, extra small text, semibold text -->
-                        <div class="stat-cell bg-dark-gray padding-sm text-xs text-semibold">
-                            <i class="fa fa-frown-o"></i>&nbsp;&nbsp; {{$bads}} Negative
-                        </div>
-                    </div> <!-- /.stat-row -->
-                    <div class="stat-row">
-                        <!-- Bordered, without top border, without horizontal padding -->
-                        <div class="stat-cell bordered no-border-t no-padding-hr">
-                            <div class="pie-chart" data-percent="{{($goods+$bads+$neutral) ? $bads/($goods+$bads+$neutral)*100 : 0}}" id="easy-pie-chart-2">
-                                <div class="pie-chart-label">{{($goods+$bads+$neutral) ? $bads/($goods+$bads+$neutral)*100 : 0 }}%</div>
-                            </div>
-                        </div>
-                    </div> <!-- /.stat-row -->
-                </div> <!-- /.stat-panel -->
-            </div>
-            <div class="col-xs-4">
-                <div class="stat-panel text-center">
-                    <div class="stat-row">
-                        <!-- Dark gray background, small padding, extra small text, semibold text -->
-                        <div class="stat-cell bg-dark-gray padding-sm text-xs text-semibold">
-                            <i class="fa fa-meh-o"></i>&nbsp;&nbsp;{{$neutral}} Neutral
-                        </div>
-                    </div> <!-- /.stat-row -->
-                    <div class="stat-row">
-                        <!-- Bordered, without top border, without horizontal padding -->
-                        <div class="stat-cell bordered no-border-t no-padding-hr">
-                            <div class="pie-chart" data-percent="{{ ($goods+$bads+$neutral) > 0 ? $neutral/($goods+$bads+$neutral)*100:0 }}" id="easy-pie-chart-3">
-                                <div class="pie-chart-label">{{ ($goods+$bads+$neutral) > 0 ? $neutral/($goods+$bads+$neutral)*100:0 }}%</div>
-                            </div>
-                        </div>
-                    </div> <!-- /.stat-row -->
-                </div> <!-- /.stat-panel -->
-            </div>
+            <div class="col-md-5 col-md-offset-3">
+                <canvas id="myChart" ></canvas>
+           </div>
+
         </div>
     </div>
     <!-- /6. $EASY_PIE_CHARTS -->
@@ -915,12 +864,10 @@ Use search to find needed section.
             </div> <!-- / .panel -->
         </div>
         <!-- /12. $NEW_USERS_TABLE -->
-
-
-
     </div>
 </div> <!-- / #content-wrapper -->
 <div id="main-menu-bg"></div>
+
 </div> <!-- / #main-wrapper -->
 
 <!-- Get jQuery from Google CDN -->
@@ -935,7 +882,39 @@ Use search to find needed section.
 <!-- Pixel Admin's javascripts -->
 <script src="{{URL::asset('assets/javascripts/bootstrap.min.js' )}}"></script>
 <script src="{{URL::asset('assets/javascripts/pixel-admin.min.js' )}}"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.2/Chart.min.js"></script>
+<script>
+    var ctx = document.getElementById("myChart");
+    var data = {
+        labels: [
+            "Positive",
+            "Neutral",
+            "Negative"
+        ],
+        datasets: [
+            {
+                data: [{{$goods}}, {{$neutral}}, {{$bads}}],
+                backgroundColor: [
+                    "#5ebd5e",
+                    "#36A2EB",
+                    "#FF6384"
+                ],
+                hoverBackgroundColor: [
+                    "#5ebd5e",
+                    "#36A2EB",
+                    "#FF6384"
+                ]
+            }]
+    };
+    // For a pie chart
+    var myPieChart = new Chart(ctx,{
+        type: 'pie',
+        data: data,
+        animation:{
+            animateScale:true
+        }
+    });
+</script>
 <script type="text/javascript">
     init.push(function () {
         // Javascript code here
