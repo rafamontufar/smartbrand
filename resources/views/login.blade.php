@@ -12,6 +12,8 @@
         <link href="{{ URL::asset('assets/css/theme.css') }}" rel="stylesheet" type="text/css" media="all" />
         <link href="{{ URL::asset('assets/css/custom.css') }}" rel="stylesheet" type="text/css" media="all" />
         <link href='http://fonts.googleapis.com/css?family=Lato:300,400%7CRaleway:100,400,300,500,600,700%7COpen+Sans:400,500,600' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
     </head>
     <body>
         <div class="nav-container">
@@ -52,14 +54,20 @@
                         <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2">
                             <div class="feature bordered text-center">
                                 <h4 class="uppercase">Login Here</h4>
-                                <form class="text-left">
-                                    <input class="mb0" type="text" placeholder="Username" />
-                                    <input class="mb0" type="password" placeholder="Password" />
-                                    <input type="submit" value="Login" />
-                                </form>
-                                <p class="mb0">Forgot your password?
-                                    <a href="#">Click Here To Reset</a>
-                                </p>
+
+                                {!! Form::open(array('route' => ['redirect.auth.provider','google'] )) !!}
+                            
+                                    
+                                            <button type="submit" class="btn btn-block btn-social btn-lg btn-google">
+                                                <span class="fa fa-google"></span>
+                                                    Login with Google
+                                            </button>
+                                            
+                                {!! Form::close() !!}
+
+                                <a class="btn btn-block btn-social btn-google">
+                                    <span class="fa fa-google"></span> Login with Google
+                                  </a>
                             </div>
                         </div>
                     </div>
@@ -84,3 +92,6 @@
         <script src="{{ URL::asset('assets/js/scripts.js') }}"></script>
     </body>
 </html>
+
+<link rel="stylesheet" type="text/css" href="{{ URL::asset('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.12.0/bootstrap-social.min.css') }}">
+

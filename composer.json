@@ -9,7 +9,8 @@
         "laravel/framework": "5.2.*",
         "laravel/socialite": "^2.0",
         "havenondemand/havenondemand": "^1.0",
-        "cartalyst/sentinel": "2.0.*"
+        "cartalyst/sentinel": "2.0.*",
+        "laravelcollective/html": "5.2.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

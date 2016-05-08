@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Socialite;
 use Sentinel;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
