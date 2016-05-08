@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['middleware' => ['web']], function () {
+    Route::get('getChannels','GoogleController@getChannels');
+    Route::get('getVideosByChannel','GoogleController@getVideosByChannel');
+    Route::get('getCommentsByVideo/{video}','GoogleController@getCommentsByVideoId');
 });
+
