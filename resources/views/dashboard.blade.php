@@ -322,8 +322,8 @@ Use search to find needed section.
                     <div class="stat-row">
                         <!-- Bordered, without top border, without horizontal padding -->
                         <div class="stat-cell bordered no-border-t no-padding-hr">
-                            <div class="pie-chart" data-percent="83" id="easy-pie-chart-1">
-                                <div class="pie-chart-label">83%</div>
+                            <div class="pie-chart" data-percent="{{$goods/($goods+$bads+$neutral)*100}}" id="easy-pie-chart-1">
+                                <div class="pie-chart-label">{{$goods/($goods+$bads+$neutral)*100}}%</div>
                             </div>
                         </div>
                     </div> <!-- /.stat-row -->
@@ -340,8 +340,8 @@ Use search to find needed section.
                     <div class="stat-row">
                         <!-- Bordered, without top border, without horizontal padding -->
                         <div class="stat-cell bordered no-border-t no-padding-hr">
-                            <div class="pie-chart" data-percent="12" id="easy-pie-chart-2">
-                                <div class="pie-chart-label">12%</div>
+                            <div class="pie-chart" data-percent="{{$bads/($goods+$bads+$neutral)*100}}" id="easy-pie-chart-2">
+                                <div class="pie-chart-label">{{$bads/($goods+$bads+$neutral)*100}}%</div>
                             </div>
                         </div>
                     </div> <!-- /.stat-row -->
@@ -358,8 +358,8 @@ Use search to find needed section.
                     <div class="stat-row">
                         <!-- Bordered, without top border, without horizontal padding -->
                         <div class="stat-cell bordered no-border-t no-padding-hr">
-                            <div class="pie-chart" data-percent="5" id="easy-pie-chart-3">
-                                <div class="pie-chart-label">5%</div>
+                            <div class="pie-chart" data-percent="{{$neutral/($goods+$bads+$neutral)*100}}" id="easy-pie-chart-3">
+                                <div class="pie-chart-label">{{$neutral/($goods+$bads+$neutral)*100}}%</div>
                             </div>
                         </div>
                     </div> <!-- /.stat-row -->
@@ -883,17 +883,17 @@ Use search to find needed section.
                         <th>NickName</th>
                         <th>Total comments</th>
                         <th>Channel</th>
-                        <th></th>
                     </tr>
                     </thead>
                     <tbody class="valign-middle">
+                    <?php $count = 1; ?>
                     @foreach($users as $user=>$total)
                     <tr>
-                        <td>5</td>
+                        <?php $count++ ?>
+                        <td>{{$count}}</td>
                         <td>
-                            <img src="{{URL::asset('assets/demo/avatars/2.jpg' )}}" alt="" style="width:26px;height:26px;" class="rounded">&nbsp;&nbsp;<a href="#" title="">@976b24nkok</a>
+                            <img src="{{URL::asset('assets/demo/avatars/2.jpg' )}}" alt="" style="width:26px;height:26px;" class="rounded">&nbsp;&nbsp;<a href="" title="">{{$user}}</a>
                         </td>
-                        <td>{{$user}}</td>
                         <td>{{$total}}</td>
                         <td>
                             @foreach($comments as $comment)

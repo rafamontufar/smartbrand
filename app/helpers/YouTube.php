@@ -26,10 +26,11 @@ class YouTube
         $url = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=$playlistId&key=".env('GOOGLE_KEY')."&maxResults=50";
 
         $response = $this->getCurl($url);
-        
         $videos = [];
         foreach ($response->items as $video){
-            $videos[]=['videoId'=>$video->snippet->resourceId->videoId,'title'=>$video->snippet->title];
+            $videos[]=['videoId'=>$video->snippet->resourceId->videoId,
+                        'title'=>$video->snippet->title,
+                        'image'=>$video->snippet->thumbnails->default->url];
         }
 
         return $videos;
@@ -39,18 +40,26 @@ class YouTube
     public function getTagsByVideoId($video_id){
         $url = "https://www.googleapis.com/youtube/v3/videos?key=".env('GOOGLE_KEY')."&fields=items(snippet(title,description,tags))&part=snippet&id={$video_id}";
         $response = $this->getCurl($url);
-        return $response->items[0]->snippet->tags;
+        return isset($response->items[0]->snippet->tags)?$response->items[0]->snippet->tags:[];
 
+    }
+
+    public function getInfoChannel($chanelId){
+        $url = "https://www.googleapis.com/youtube/v3/channels?id=$chanelId&key=".env('GOOGLE_KEY')."&part=snippet,contentDetails";
+        $response = $this->getCurl($url);
+        return $response;
     }
 
     public function getChannels($username){
         $url = "https://www.googleapis.com/youtube/v3/channels?part=contentDetails&key=".env('GOOGLE_KEY')."&forUsername=$username";
 
         $response = $this->getCurl($url);
-//        dd($response);
         $channels = [];
         foreach ($response->items as $channel){
-            $channels[] = ['id'=>$channel->contentDetails->relatedPlaylists->uploads];
+            $details = $this->getInfoChannel($channel->id);
+            $channels[] = ['id'=>$channel->contentDetails->relatedPlaylists->uploads,
+                           'title'=>$details->items[0]->snippet->title,
+                           'image'=>$details->items[0]->snippet->thumbnails->default->url];
         }
         return $channels;
 

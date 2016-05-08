@@ -24,7 +24,7 @@ class Heaven {
 
 		$json_response = curl_exec($curl);
 		curl_close($curl);
-
+		
 		return json_decode($json_response);
 	}
 }

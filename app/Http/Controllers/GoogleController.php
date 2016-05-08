@@ -15,7 +15,7 @@ class GoogleController extends Controller
         $youtube  = new YouTube();
         $comments = $youtube->getCommentsByVideoId('rVmiP7fF71A');
         $users = [];
-        dd($comments);
+        
         foreach ($comments as $comment){
             $users[] = $comment['author'];
         }
@@ -30,7 +30,7 @@ class GoogleController extends Controller
         $youtube = new YouTube();
 
         $videos =  $youtube->getVideosByChannel($channelId);
-    
+
         $data = [ 'videos' => $videos];
 
         return View::make('videos',$data);

@@ -259,9 +259,14 @@ Use search to find needed section.
 
 			@foreach($videos as $video)
 
-			<a href="{{ URL::route('get.videos', $channel['id'] )}}">	{{ $channel['id'] }} </a>
+				<div class="col-md-4">
+					<img src="{{$video['image']}}">
+					<a href="{{ URL::route('dashboard.video', $video['videoId'] )}}">	{{ $video['title'] }} </a>
+				</div>
 
 			@endforeach
+
+
 
 			</div> <!-- /.stat-panel -->
 	<!-- /6. $EXAMPLE_COMMENTS_COUNT -->

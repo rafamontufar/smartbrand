@@ -259,7 +259,7 @@ Use search to find needed section.
 
 			@foreach($channels as $channel)
 
-			<a href="{{ URL::route('get.videos', $channel['id'] )}}">	{{ $channel['id'] }} </a>
+			<img src="{{$channel['image']}}"><a href="{{ URL::route('get.videos', $channel['id'] )}}">	{{ $channel['title'] }} </a>
 
 			@endforeach
 

@@ -56,9 +56,10 @@ class AnalyticsController extends Controller
 
         $totalComments = count($comments);
         $feeling = $heaven->getFeeling($comments);
-
-        $goods = count($feeling->positive);
-        $bads  = count($feeling->negative);
+        dd($feeling);
+        $goods = isset($feeling->positive)? count($feeling->positive) : 0;
+        $bads  = isset($feeling->negative)? count($feeling->negative) : 0;
+        
         $neutral = count($comments) - ($goods + $bads);
 
         return view('dashboard',compact('goods','bads','neutral','totalComments','feeling','tags','users','comments'));
