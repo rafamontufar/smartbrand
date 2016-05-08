@@ -33,5 +33,7 @@ Route::group(['middleware' => ['web']], function () {
 
 Route::get('/',['uses' => 'PagesController@home' , 'as' => 'home']);
 
+Route::get('prueba', ['uses' => 'AnalyticsController@meme']);
+
 Route::get('auth/google', 'Auth\AuthController@redirectToProvider');
 Route::get('auth/google/callback', 'Auth\AuthController@handleProviderCallback');
