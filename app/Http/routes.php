@@ -11,6 +11,12 @@
 |
 */
 
+Route::group(['middleware' => ['web']], function () {
+    Route::get('getChannels','GoogleController@getChannels');
+    Route::get('getVideosByChannel','GoogleController@getVideosByChannel');
+    Route::get('getCommentsByVideo/{video}','GoogleController@getCommentsByVideoId');
+});
+
 Route::get('/',['uses' => 'PagesController@home' , 'as' => 'home']);
 
 Route::get('prueba', ['uses' => 'AnalyticsController@meme']);
