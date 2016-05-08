@@ -16,6 +16,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('getVideosByChannel','GoogleController@getVideosByChannel');
     Route::get('getCommentsByVideo/{video}','GoogleController@getCommentsByVideoId');
     Route::get('getFeelingsByVideo/{video_id}','AnalyticsController@getFeelingsByVideoId');
+    Route::get('getTagsByVideoId/{video_id}','AnalyticsController@getTagsByVideoId');
+
+    Route::get('dashboard/{video_id}','AnalyticsController@dashboard');
+
 });
 
 Route::get('auth/logout', ['uses' => 'Auth\AuthController@getLogout', 'as' => 'logout']);
