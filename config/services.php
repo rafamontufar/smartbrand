@@ -14,10 +14,10 @@ return [
     |
     */
     'google' => [
-        'client_id' => '836142806497-hinusk39f6g4ga525ls42ocb7n0g55bs.apps.googleusercontent.com',
-        'client_secret' => '2o-OymXP1ZnUYBUXB55tIuwf',
-        'redirect' => 'http://localhost/redirectGoogle',
-    ],
+		'client_id'		=> getenv('GOOGLE_CLIENT_ID'),
+		'client_secret' => getenv('GOOGLE_CLIENT_SECRET'),
+		'redirect'		=> getenv('GOOGLE_REDIRECT_URL')
+	],
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),
