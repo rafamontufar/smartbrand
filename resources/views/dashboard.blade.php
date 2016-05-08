@@ -355,7 +355,7 @@ Use search to find needed section.
                                 <tr>
                                     <td>{{$count}}<?php $count++; ?></td>
                                     <td>{{$positive->original_text}}</td>
-                                    <td>{{$positive->score}}</td>
+                                    <td>{{round($positive->score,2)}}</td>
                                 </tr>
                                 @endforeach
                             @endif
@@ -394,7 +394,7 @@ Use search to find needed section.
                                 <tr>
                                     <td>{{$count}}<?php $count++; ?></td>
                                     <td>{{$negative->original_text}}</td>
-                                    <td>{{$negative->score}}</td>
+                                    <td>{{ round($negative->score,2)}}</td>
                                 </tr>
                                 @endforeach
                             @endif
