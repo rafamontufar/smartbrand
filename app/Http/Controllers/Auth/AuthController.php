@@ -165,7 +165,7 @@ class AuthController extends Controller
       Sentinel::authenticate(['email' => $provider_user->getEmail() , 'password' => $password]);
 		}
 
-        return Redirect::route('home')->send(); 
+        return Redirect::route('menu')->send(); 
 
 	}
 

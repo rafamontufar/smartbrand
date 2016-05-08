@@ -55,19 +55,15 @@
                             <div class="feature bordered text-center">
                                 <h4 class="uppercase">Login Here</h4>
 
-                                {!! Form::open(array('route' => ['redirect.auth.provider','google'] )) !!}
-                            
+                                {!! Form::open(array('route' => ['redirect.auth.provider','google'] )) !!}                            
                                     
-                                            <button type="submit" class="btn btn-block btn-social btn-lg btn-google">
-                                                <span class="fa fa-google"></span>
-                                                    Login with Google
-                                            </button>
+                                    <button type="submit" class="btn btn-block btn-social btn-lg btn-google">
+                                        <span class="fa fa-google"></span>
+                                            Login with Google
+                                    </button>
                                             
                                 {!! Form::close() !!}
 
-                                <a class="btn btn-block btn-social btn-google">
-                                    <span class="fa fa-google"></span> Login with Google
-                                  </a>
                             </div>
                         </div>
                     </div>

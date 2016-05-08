@@ -99,7 +99,7 @@ Use search to find needed section.
 				<div>
 					<ul class="nav navbar-nav">
 						<li>
-							<a href="#">General</a>
+							<a href="#">Canales</a>
 						</li>
 						<li>
 							<a href="#">Emotions</a>
@@ -224,13 +224,13 @@ Use search to find needed section.
 		<ul class="breadcrumb breadcrumb-page">
 			<div class="breadcrumb-label text-light-gray">You are here: </div>
 			<li><a href="#">Youtube</a></li>
-			<li class="active"><a href="#">General</a></li>
+			<li class="active"><a href="#">Canales</a></li>
 		</ul>
 		<div class="page-header">
 
 			<div class="row">
 				<!-- Page header, center on small screens -->
-				<h1 class="col-xs-12 col-sm-4 text-center text-left-sm"><i class="fa fa-dashboard page-header-icon"></i>&nbsp;&nbsp;General</h1>
+				<h1 class="col-xs-12 col-sm-4 text-center text-left-sm"><i class="fa fa-dashboard page-header-icon"></i>&nbsp;&nbsp;Canales</h1>
 
 				<div class="col-xs-12 col-sm-8">
 					<div class="row">

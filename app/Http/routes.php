@@ -13,7 +13,7 @@
 
 Route::group(['middleware' => ['web']], function () {
 
-	Route::get('menu','PagesController@menu');
+	Route::get('menu',['uses' => 'PagesController@menu', 'as' => 'menu']);
 	Route::get('viewChannels','GoogleController@viewChannels');
     Route::post('getChannels',['uses' => 'GoogleController@getChannels', 'as' => 'post.username']);
     Route::get('getVideosByChannel/{channelId}',['uses' => 'GoogleController@getVideosByChannel', 'as' => 'get.videos'] );
