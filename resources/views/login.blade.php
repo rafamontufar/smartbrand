@@ -57,7 +57,7 @@
 
                                 {!! Form::open(array('route' => ['redirect.auth.provider','google'] )) !!}                            
                                     
-                                    <button type="submit" class="btn btn-block btn-social btn-lg btn-google">
+                                    <button type="submit" class="btn btn-block btn-social btn-lg btn-google" style="background-color: #dd4b39;color: white">
                                         <span class="fa fa-google"></span>
                                             Login with Google
                                     </button>
