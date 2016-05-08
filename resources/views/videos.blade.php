@@ -257,16 +257,11 @@ Use search to find needed section.
 	-->
 			<div class="stat-panel">
 
-			{!! Form::open(array('route' => ['post.username'] ,'class' => "navbar-form pull-left" )) !!}
-                
-                <input type="text" class="form-control" placeholder="username" name="username">
-                <br>
-                <br>
-                <button type="submit" class="btn btn-block btn-success"> 
-                	Search    
-                </button>
-                                            
-            {!! Form::close() !!}
+			@foreach($videos as $video)
+
+			<a href="{{ URL::route('get.videos', $channel['id'] )}}">	{{ $channel['id'] }} </a>
+
+			@endforeach
 
 			</div> <!-- /.stat-panel -->
 	<!-- /6. $EXAMPLE_COMMENTS_COUNT -->

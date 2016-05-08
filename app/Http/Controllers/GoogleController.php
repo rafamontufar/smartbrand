@@ -4,6 +4,8 @@
 namespace App\Http\Controllers;
 
 use App\helpers\YouTube;
+use Illuminate\Http\Request;
+use View;
 
 class GoogleController extends Controller
 {
@@ -20,14 +22,37 @@ class GoogleController extends Controller
         
         $youtube = new YouTube();
 
-        return $youtube->getVideosByChannel($channelId);
+        $videos =  $youtube->getVideosByChannel($channelId);
+    
+        $data = [ 'videos' => $videos];
+
+        return View::make('videos',$data);
     }
 
-    public function getChannels($username){
+    public function getChannels(Request $request){
         
-        $youtube = new YouTube();
+        $username = $request->input('username');
 
-        return $youtube->getChannels($username);
+        $youtube = new YouTube();
+        $channels = $youtube->getChannels($username);
+
+        $data = [ 'channels' => $channels];
+
+        return View::make('channels',$data);
+
+    }
+
+
+    public function channels(){
+
+        return View::make('channels');
+
+    }
+
+    public function videos(){
+        
+        return View::make('videos');
+    
     }
 
 }

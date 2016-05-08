@@ -15,8 +15,8 @@ Route::group(['middleware' => ['web']], function () {
 
 	Route::get('menu','PagesController@menu');
 	Route::get('viewChannels','GoogleController@viewChannels');
-    Route::get('getChannels/{username}','GoogleController@getChannels');
-    Route::get('getVideosByChannel/channelId','GoogleController@getVideosByChannel');
+    Route::post('getChannels',['uses' => 'GoogleController@getChannels', 'as' => 'post.username']);
+    Route::get('getVideosByChannel/{channelId}',['uses' => 'GoogleController@getVideosByChannel', 'as' => 'get.videos'] );
     Route::get('videos', 'GoogleController@showVideos');
     Route::get('getCommentsByVideo/{video}','GoogleController@getCommentsByVideoId');
     Route::get('getFeelingsByVideo/{videoId}','AnalyticsController@getFeelingsByVideoId');

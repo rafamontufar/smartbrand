@@ -34,7 +34,7 @@ class YouTube
 
 
 
-    public function getChannels($username = 'Mark30007'){
+    public function getChannels($username){
         $url = "https://www.googleapis.com/youtube/v3/channels?part=contentDetails&key=".env('GOOGLE_KEY')."&forUsername=$username";
 
         $response = $this->getCurl($url);
