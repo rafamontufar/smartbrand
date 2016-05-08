@@ -32,6 +32,7 @@ Route::group(['middleware' => ['web']], function () {
 });
 
 Route::get('/',['uses' => 'PagesController@home' , 'as' => 'home']);
+Route::get('login', ['uses' => 'PagesController@login', 'as' => 'login']);
 
 Route::get('prueba', ['uses' => 'AnalyticsController@meme']);
 
