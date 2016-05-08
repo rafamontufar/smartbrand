@@ -56,7 +56,7 @@ class AnalyticsController extends Controller
 
         $totalComments = count($comments);
         $feeling = $heaven->getFeeling($comments);
-        dd($feeling);
+//        dd($feeling);
         $goods = isset($feeling->positive)? count($feeling->positive) : 0;
         $bads  = isset($feeling->negative)? count($feeling->negative) : 0;
         

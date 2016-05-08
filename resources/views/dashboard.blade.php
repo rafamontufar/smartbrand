@@ -322,8 +322,8 @@ Use search to find needed section.
                     <div class="stat-row">
                         <!-- Bordered, without top border, without horizontal padding -->
                         <div class="stat-cell bordered no-border-t no-padding-hr">
-                            <div class="pie-chart" data-percent="{{$goods/($goods+$bads+$neutral)*100}}" id="easy-pie-chart-1">
-                                <div class="pie-chart-label">{{$goods/($goods+$bads+$neutral)*100}}%</div>
+                            <div class="pie-chart" data-percent="{{($goods+$bads+$neutral) ? $goods/($goods+$bads+$neutral)*100 : 0}}" id="easy-pie-chart-1">
+                                <div class="pie-chart-label">{{($goods+$bads+$neutral) ? $goods/($goods+$bads+$neutral)*100 : 0}}%</div>
                             </div>
                         </div>
                     </div> <!-- /.stat-row -->
@@ -340,8 +340,8 @@ Use search to find needed section.
                     <div class="stat-row">
                         <!-- Bordered, without top border, without horizontal padding -->
                         <div class="stat-cell bordered no-border-t no-padding-hr">
-                            <div class="pie-chart" data-percent="{{$bads/($goods+$bads+$neutral)*100}}" id="easy-pie-chart-2">
-                                <div class="pie-chart-label">{{$bads/($goods+$bads+$neutral)*100}}%</div>
+                            <div class="pie-chart" data-percent="{{($goods+$bads+$neutral) ? $bads/($goods+$bads+$neutral)*100 : 0}}" id="easy-pie-chart-2">
+                                <div class="pie-chart-label">{{($goods+$bads+$neutral) ? $bads/($goods+$bads+$neutral)*100 : 0 }}%</div>
                             </div>
                         </div>
                     </div> <!-- /.stat-row -->
@@ -358,8 +358,8 @@ Use search to find needed section.
                     <div class="stat-row">
                         <!-- Bordered, without top border, without horizontal padding -->
                         <div class="stat-cell bordered no-border-t no-padding-hr">
-                            <div class="pie-chart" data-percent="{{$neutral/($goods+$bads+$neutral)*100}}" id="easy-pie-chart-3">
-                                <div class="pie-chart-label">{{$neutral/($goods+$bads+$neutral)*100}}%</div>
+                            <div class="pie-chart" data-percent="{{ ($goods+$bads+$neutral) > 0 ? $neutral/($goods+$bads+$neutral)*100:0 }}" id="easy-pie-chart-3">
+                                <div class="pie-chart-label">{{ ($goods+$bads+$neutral) > 0 ? $neutral/($goods+$bads+$neutral)*100:0 }}%</div>
                             </div>
                         </div>
                     </div> <!-- /.stat-row -->
@@ -401,13 +401,15 @@ Use search to find needed section.
                             </thead>
                             <tbody>
                             <?php $count = 1; ?>
-                            @foreach($feeling->positive as $positive)
-                            <tr>
-                                <td>{{$count}}<?php $count++; ?></td>
-                                <td>{{$positive->original_text}}</td>
-                                <td>{{$positive->score}}</td>
-                            </tr>
-                            @endforeach
+                            @if(isset($feeling->positive))
+                                @foreach($feeling->positive as $positive)
+                                <tr>
+                                    <td>{{$count}}<?php $count++; ?></td>
+                                    <td>{{$positive->original_text}}</td>
+                                    <td>{{$positive->score}}</td>
+                                </tr>
+                                @endforeach
+                            @endif
                             </tbody>
                         </table>
                     </div>
@@ -437,13 +439,16 @@ Use search to find needed section.
                             </thead>
                             <tbody>
                             <?php $count = 1; ?>
-                            @foreach($feeling->negative as $negative)
+                            @if(isset($feeling->negative))
+
+                                @foreach($feeling->negative as $negative)
                                 <tr>
                                     <td>{{$count}}<?php $count++; ?></td>
                                     <td>{{$negative->original_text}}</td>
                                     <td>{{$negative->score}}</td>
                                 </tr>
-                            @endforeach
+                                @endforeach
+                            @endif
                             </tbody>
                         </table>
                     </div>
