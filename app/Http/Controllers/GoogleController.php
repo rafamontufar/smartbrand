@@ -23,14 +23,18 @@ class GoogleController extends Controller
 
     }
 
-    public function getVideosByChannel(){
+    public function getVideosByChannel($channelId){
+        
         $youtube = new YouTube();
-        return $youtube->getVideosByChannel('UU7eoqLsLRu18nqF_xetFnmQ');
+
+        return $youtube->getVideosByChannel($channelId);
     }
 
-    public function getChannels(){
+    public function getChannels($username){
+        
         $youtube = new YouTube();
-        return $youtube->getChannels('joaquinsabinaVEVO');
+
+        return $youtube->getChannels($username);
     }
 
 }

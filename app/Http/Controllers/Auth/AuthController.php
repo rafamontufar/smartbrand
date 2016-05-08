@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\models\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -10,6 +10,8 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Socialite;
 use Sentinel;
 use Illuminate\Http\Request;
+use Redirect;
+use Hash;
 
 class AuthController extends Controller
 {
@@ -120,6 +122,7 @@ class AuthController extends Controller
 
         try {
             $provider_user = Socialite::with('google')->user();
+          
         } catch (Exception $e) {
             Log::error( $e );
             return Redirect::to('/')->with('error','Ocurrio un problema, no se ha podido iniciar sesión con Google');
@@ -131,7 +134,6 @@ class AuthController extends Controller
 	public function authWithProvider($provider, $provider_user){
 
 		$user = User::where('email','=',$provider_user->email)->first();
-		
 
 		if($user)
 		{
@@ -141,23 +143,29 @@ class AuthController extends Controller
 	            $auth = Sentinel::authenticate($user);
 	        }
 	        catch( \Cartalyst\Sentinel\Checkpoints\NotActivatedException $e){
-	            return Redirect::back()->with('modal_window',$modal_window)->withInput()->withErrors($e->getMessage())->send();
+	            return Redirect::back()->withInput()->withErrors($e->getMessage())->send();
 	        }
 	        catch (\Cartalyst\Sentinel\Checkpoints\ThrottlingException $e)
 	        {
-	            return Redirect::back()->with('modal_window',$modal_window)->withInput()->withErrors($e->getMessage())->send();
+	            return Redirect::back()->withInput()->withErrors($e->getMessage())->send();
 	        }catch(Exception $e)
 	        {   
                 Log::error( $e );
-	            return Redirect::back()->with('modal_window',$modal_window)->withInput()->withErrors('Invalid password or email')->send();
+	            return Redirect::back()->withInput()->withErrors('Invalid password or email')->send();
 	        }
 
 		}else{
-		
-			return Redirect::back()->with('modal_window',$modal_window)->withInput()->withErrors('Tu cuenta de '. $provider .' no esta vinculada con ningun correo del sistema')->send();
+
+      /*generate random password and hash it*/
+      $password = str_random(8);
+      $password = Hash::make($password);
+		  
+      $user = Sentinel::registerAndActivate(['email' => $provider_user->getEmail() , 'password' => $password]);
+
+      Sentinel::authenticate(['email' => $provider_user->getEmail() , 'password' => $password]);
 		}
 
-        return Redirect::route('admin.dashboard')->send(); 
+        return Redirect::route('home')->send(); 
 
 	}
 

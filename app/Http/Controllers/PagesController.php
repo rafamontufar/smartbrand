@@ -23,4 +23,10 @@ class PagesController extends Controller
 
 	}
 
+	public function menu(){
+		
+		return View::make('username');
+
+	}
+
 }
