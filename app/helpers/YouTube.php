@@ -11,7 +11,7 @@ class YouTube
 
         $url = "https://www.googleapis.com/youtube/v3/commentThreads?key=".env('GOOGLE_KEY')."&textFormat=plainText&part=snippet&videoId=$videoId&maxResults=100";
         $results = $this->getCurl($url);
-//        dd($results);
+//      dd($results);
         $comments = [];
         foreach ($results->items as $comment){
             $comments[] = ['comment'=>$comment->snippet->topLevelComment->snippet->textDisplay];
@@ -35,10 +35,10 @@ class YouTube
 
 
     public function getChannels($username = 'Mark30007'){
-        $url = "https://www.googleapis.com/youtube/v3/channels?part=contentDetails&key=".env('GOOGLE_KEY')."&forUsername=Mark30007";
+        $url = "https://www.googleapis.com/youtube/v3/channels?part=contentDetails&key=".env('GOOGLE_KEY')."&forUsername=$username";
 
         $response = $this->getCurl($url);
-
+//      dd($results);
         $channels = [];
         foreach ($response->items as $channel){
             $channels[] = ['id'=>$channel->id];
