@@ -21,6 +21,7 @@
     "autoload": {
         "classmap": [
             "database",
+            "app/models",
             "app/helpers"
         ],
         "psr-4": {

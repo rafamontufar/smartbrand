@@ -76,33 +76,88 @@ class AuthController extends Controller
    *
    * @return Response
    */
-  public function redirectToProvider()
-  {
-      return Socialite::driver('google')->redirect();
-  }
+
+  public function redirectToProvider($driver, Request $request)
+	{
+
+    	return Socialite::with($driver)->redirect();
+	}
 
   /**
    * Obtain the user information from GitHub.
    *
    * @return Response
    */
-  public function handleProviderCallback()
-  {
-      $userProvider = Socialite::driver('google')->user();
-//      dd($userProvider);
-      $user = User::where('email',$userProvider->email)->first();
-      if($user){
-        Sentinel::login($user);
-      }
-      else{
-          $credentials = [
-              'email'    => $userProvider->email,
-              'password' => 'lasdasd'
-          ];
+  	public function handleLinkedinCallback()
+	{
 
-          $user = Sentinel::registerAndActivate($credentials);
-          Sentinel::login($user);
-      }
-  }
+        try {
+            $provider_user = Socialite::with('linkedin')->user();
+        } catch (Exception $e) {
+            Log::error( $e );
+            return Redirect::to('/')->with('error','Ocurrio un problema, no se ha podido iniciar sesión con Linkedin');
+        }   
+		
+		$this->authWithProvider('linkedin', $provider_user);
+	}
+
+	public function handleFacebookCallback()
+	{
+
+        try {
+            $provider_user = Socialite::with('facebook')->user();
+        } catch (Exception $e) {
+            Log::error( $e );
+            return Redirect::to('/')->with('error','Ocurrio un problema, no se ha podido iniciar sesión con Facebook');
+        }        
+
+		$this->authWithProvider('facebook', $provider_user);
+	}
+
+	public function handleGoogleCallback()
+	{
+
+        try {
+            $provider_user = Socialite::with('google')->user();
+        } catch (Exception $e) {
+            Log::error( $e );
+            return Redirect::to('/')->with('error','Ocurrio un problema, no se ha podido iniciar sesión con Google');
+        } 
+		
+		$this->authWithProvider('google', $provider_user);
+	}
+
+	public function authWithProvider($provider, $provider_user){
+
+		$user = User::where('email','=',$provider_user->email)->first();
+		
+
+		if($user)
+		{
+	
+			try
+	        {
+	            $auth = Sentinel::authenticate($user);
+	        }
+	        catch( \Cartalyst\Sentinel\Checkpoints\NotActivatedException $e){
+	            return Redirect::back()->with('modal_window',$modal_window)->withInput()->withErrors($e->getMessage())->send();
+	        }
+	        catch (\Cartalyst\Sentinel\Checkpoints\ThrottlingException $e)
+	        {
+	            return Redirect::back()->with('modal_window',$modal_window)->withInput()->withErrors($e->getMessage())->send();
+	        }catch(Exception $e)
+	        {   
+                Log::error( $e );
+	            return Redirect::back()->with('modal_window',$modal_window)->withInput()->withErrors('Invalid password or email')->send();
+	        }
+
+		}else{
+		
+			return Redirect::back()->with('modal_window',$modal_window)->withInput()->withErrors('Tu cuenta de '. $provider .' no esta vinculada con ningun correo del sistema')->send();
+		}
+
+        return Redirect::route('admin.dashboard')->send(); 
+
+	}
 
 }

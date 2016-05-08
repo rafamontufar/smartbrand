@@ -31,6 +31,13 @@ Route::group(['middleware' => ['web']], function () {
     });
 });
 
+Route::get('auth/logout', ['uses' => 'Auth\AuthController@getLogout', 'as' => 'logout']);
+
+Route::post('auth/login/{provider}',['uses' => 'Auth\AuthController@redirectToProvider', 'as' => 'redirect.auth.provider']);
+Route::get('auth/callback/linkedin',['uses' => 'Auth\AuthController@handleLinkedinCallback', 'as' => 'handle.linkedin.callback']);
+Route::get('auth/callback/facebook',['uses' => 'Auth\AuthController@handleFacebookCallback', 'as' => 'handle.facebook.callback']);
+Route::get('auth/callback/google',['uses' => 'Auth\AuthController@handleGoogleCallback', 'as' => 'handle.google.callback']);
+
 Route::get('/',['uses' => 'PagesController@home' , 'as' => 'home']);
 Route::get('login', ['uses' => 'PagesController@login', 'as' => 'login']);
 
