@@ -9,12 +9,14 @@ class YouTube
 
     public function getCommentsByVideoId($videoId = 'dM6XYUYj804'){
 
-        $url = "https://www.googleapis.com/youtube/v3/commentThreads?key=".env('GOOGLE_KEY')."&textFormat=plainText&part=snippet&videoId=$videoId&maxResults=80";
+        $url = "https://www.googleapis.com/youtube/v3/commentThreads?key=".env('GOOGLE_KEY')."&textFormat=plainText&part=snippet&videoId=$videoId&maxResults=40";
         $results = $this->getCurl($url);
-//      dd($results);
+   //    dd($results);
         $comments = [];
         foreach ($results->items as $comment){
-            $comments[] = ['comment'=>$comment->snippet->topLevelComment->snippet->textDisplay];
+            $comments[] = [ 'comment'=>$comment->snippet->topLevelComment->snippet->textDisplay,
+                            'author'=>$comment->snippet->topLevelComment->snippet->authorDisplayName,
+                            'authorChannel'=>$comment->snippet->topLevelComment->snippet->authorChannelUrl];
         }
         return $comments;
     }
@@ -24,7 +26,7 @@ class YouTube
         $url = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=$playlistId&key=".env('GOOGLE_KEY')."&maxResults=50";
 
         $response = $this->getCurl($url);
-//        dd($response);
+        dd($response);
         $videos = [];
         foreach ($response->items as $video){
             $videos[]=['videoId'=>$video->snippet->resourceId->videoId,'title'=>$video->snippet->title];
@@ -32,7 +34,12 @@ class YouTube
         return $videos;
     }
 
+    public function getTagsByVideoId($video_id){
+        $url = "https://www.googleapis.com/youtube/v3/videos?key=".env('GOOGLE_KEY')."&fields=items(snippet(title,description,tags))&part=snippet&id={$video_id}";
+        $response = $this->getCurl($url);
+        return $response->items[0]->snippet->tags;
 
+    }
 
     public function getChannels($username){
         $url = "https://www.googleapis.com/youtube/v3/channels?part=contentDetails&key=".env('GOOGLE_KEY')."&forUsername=$username";

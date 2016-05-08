@@ -19,7 +19,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('getVideosByChannel/{channelId}',['uses' => 'GoogleController@getVideosByChannel', 'as' => 'get.videos'] );
     Route::get('videos', 'GoogleController@showVideos');
     Route::get('getCommentsByVideo/{video}','GoogleController@getCommentsByVideoId');
-    Route::get('getFeelingsByVideo/{videoId}','AnalyticsController@getFeelingsByVideoId');
+    Route::get('getFeelingsByVideo/{video_id}','AnalyticsController@getFeelingsByVideoId');
+    Route::get('getTagsByVideoId/{video_id}','AnalyticsController@getTagsByVideoId');
+
+    Route::get('dashboard/{video_id}','AnalyticsController@dashboard');
 
 });
 
