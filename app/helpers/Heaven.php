@@ -13,7 +13,7 @@ class Heaven {
 			$url = rtrim($url, "&");
 		}
 		else{
-			$url ="text=$comment";
+			$url ="text=".urlencode($comment);
 		}
 		$url = "https://api.havenondemand.com/1/api/sync/analyzesentiment/v1?$url&language=spa&apikey=".env('HEAVEN_API_KEY');
 		$curl = curl_init($url);
