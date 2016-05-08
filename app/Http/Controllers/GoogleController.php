@@ -11,16 +11,17 @@ class GoogleController extends Controller
 
     public function getCommentsByVideoId($videoId){
         $youtube = new YouTube();
-        return $youtube->getCommentsByVideoId();
+        return $youtube->getCommentsByVideoId('rVmiP7fF71A');
     }
 
     public function getVideosByChannel(){
         $youtube = new YouTube();
-        return $youtube->getVideosByChannel();
+        return $youtube->getVideosByChannel('UU7eoqLsLRu18nqF_xetFnmQ');
     }
 
     public function getChannels(){
         $youtube = new YouTube();
-        return $youtube->getChannels();
+        return $youtube->getChannels('joaquinsabinaVEVO');
     }
+
 }

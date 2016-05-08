@@ -2,18 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\helpers\YouTube;
 
 use App\Http\Requests;
 use helpers\Heaven;
 
 class AnalyticsController extends Controller
 {
-    
-	public function meme(){
+
+	public function getChannels(){
+
+	}
+
+	public function getFeelingsByVideoId($video_id){
 
 		$heaven = new Heaven();
-		return $heaven->getPeopleAndPlaces();
+		$youtube = new YouTube();
+
+		$comments = $youtube->getCommentsByVideoId('rVmiP7fF71A');
+
+		$feeling = $heaven->getFeeling($comments);
+
+		dd($feeling);
 
 	}
 

@@ -9,7 +9,7 @@ class YouTube
 
     public function getCommentsByVideoId($videoId = 'dM6XYUYj804'){
 
-        $url = "https://www.googleapis.com/youtube/v3/commentThreads?key=".env('GOOGLE_KEY')."&textFormat=plainText&part=snippet&videoId=$videoId&maxResults=100";
+        $url = "https://www.googleapis.com/youtube/v3/commentThreads?key=".env('GOOGLE_KEY')."&textFormat=plainText&part=snippet&videoId=$videoId&maxResults=80";
         $results = $this->getCurl($url);
 //      dd($results);
         $comments = [];
@@ -24,7 +24,7 @@ class YouTube
         $url = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=$playlistId&key=".env('GOOGLE_KEY')."&maxResults=50";
 
         $response = $this->getCurl($url);
-//      dd($response);
+//        dd($response);
         $videos = [];
         foreach ($response->items as $video){
             $videos[]=['videoId'=>$video->snippet->resourceId->videoId,'title'=>$video->snippet->title];
@@ -38,10 +38,10 @@ class YouTube
         $url = "https://www.googleapis.com/youtube/v3/channels?part=contentDetails&key=".env('GOOGLE_KEY')."&forUsername=$username";
 
         $response = $this->getCurl($url);
-//      dd($results);
+//        dd($response);
         $channels = [];
         foreach ($response->items as $channel){
-            $channels[] = ['id'=>$channel->id];
+            $channels[] = ['id'=>$channel->contentDetails->relatedPlaylists->uploads];
         }
         return $channels;
 
